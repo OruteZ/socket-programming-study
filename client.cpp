@@ -51,9 +51,9 @@ int main(int argc, char *argv[]) {
 	printf("Message from server:%s\n", message);
 
 	// 서버에 데이터를 보냄
-	message[0] = 'T';
-	message[1] = 'E';
-	message[2] = '\0';
+    message[0] = '\0';
+
+    strcpy_s(message, "test source file\0")
 	write(sock, message, sizeof(message));
 
 	// 소켓 연결 종료

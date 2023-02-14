@@ -21,7 +21,7 @@ int main(int argc, char *argv[]) {
 	// accept 하기위한 클라이언트 구조체 크기 밑작업 및 함수호출
 	socklen_t client_addr_size;
 
-	char message[] = "Hello World!";
+	char message[30] = "Hello World!";
 
 	if (argc != 2) {
 		printf("Usage:%s <port>\n", argv[0]);
@@ -56,17 +56,18 @@ int main(int argc, char *argv[]) {
 	if (client_sock == -1)
 		error_handling("accept() error");
 
+    // 클라이언트로부터 데이터를 읽고, 데이터 내용과 길이를 저장함
+    message[0] = '\0';
+    int str_len = read(client_sock, message, sizeof(message) - 1);
+    if (str_len == -1)
+        error_handling("read() error");
+
 	// write 함수는 데이터를 전송하는 기능의 함수인데, 이 문장이 실행됬다는 것은 연결요청이 있었다는 뜻
+    message[0] = 'Z';
 	write(client_sock, message, sizeof(message));
 
-	// 클라이언트로부터 데이터를 읽고, 데이터 내용과 길이를 저장함
-	message[0] = '\0';
-	int str_len = read(client_sock, message, sizeof(message) - 1);
-	if (str_len == -1)
-		error_handling("read() error");
-
 	// 메시지를 출력함
-	printf("Message from client:%s\n", message);
+	printf("Message from client : %s \n", message);
 
 	// 소켓 닫음
 	close(client_sock);

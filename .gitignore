@@ -1,3 +1,5 @@
 ## 다음의 폴더 무시
 client/
 server/
+/CMakeLists.txt
+/cmake-build-debug/
