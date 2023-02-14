@@ -42,6 +42,13 @@ int main(int argc, char *argv[]) {
 	if (connect_result == -1)
 		error_handling("connect() error");
 
+
+    // 서버에 데이터를 보냄
+    message[0] = '\0';
+
+    strcpy(message, "test source file\0");
+    write(sock, message, sizeof(message));
+
 	// 서버로부터 데이터를 읽고, 데이터 내용과 길이를 저장함
 	str_len = read(sock, message, sizeof(message) - 1);
 	if (str_len == -1)
@@ -50,11 +57,6 @@ int main(int argc, char *argv[]) {
 	// 메시지를 출력함
 	printf("Message from server:%s\n", message);
 
-	// 서버에 데이터를 보냄
-    message[0] = '\0';
-
-    strcpy(message, "test source file\0");
-	write(sock, message, sizeof(message));
 
 	// 소켓 연결 종료
 	close(sock);
