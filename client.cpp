@@ -53,7 +53,7 @@ int main(int argc, char *argv[]) {
 	// 서버에 데이터를 보냄
     message[0] = '\0';
 
-    strcpy_s(message, "test source file\0")
+    strcpy(message, "test source file\0")
 	write(sock, message, sizeof(message));
 
 	// 소켓 연결 종료
